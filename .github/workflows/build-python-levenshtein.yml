@@ -1,6 +1,6 @@
 name: Build ghp-import
 
-on: [push, pull_request]
+on: pull_request
 
 jobs:
   build_wheels:
@@ -21,9 +21,9 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          wget https://files.pythonhosted.org/packages/72/60/50a903ae49f4ff2731053de314598ac0cb1f470cd68bb7f98d6dfd2af2c8/ghp-import-2.0.1.tar.gz
-          tar -zxf ghp-import-2.0.1.tar.gz
-          mv ghp-import-2.0.1/* .
+          wget https://files.pythonhosted.org/packages/2a/dc/97f2b63ef0fa1fd78dcb7195aca577804f6b2b51e712516cc0e902a9a201/python-Levenshtein-0.12.2.tar.gz
+          tar -zxf python-Levenshtein-0.12.2.tar.gz
+          mv python-Levenshtein-0.12.2/* .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
