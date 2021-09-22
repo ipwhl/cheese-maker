@@ -40,3 +40,4 @@ jobs:
 Note that the wheel must be platform-dependent.  Platform-independent wheels
 can be built on sourcehut and can't be built with cibuildwheel.
 
+You also have to add a tag.
