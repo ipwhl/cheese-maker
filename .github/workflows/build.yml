@@ -32,8 +32,9 @@ jobs:
         with:
           path: ./wheelhouse/*.whl
 
-      - name: 'Release: python-Levenshtein 0.12.2'
+      - name: Release
         uses: softprops/action-gh-release@v1
-        tag_name: python-levenshtein-0.12.2
         with:
+          name: 'Release: python-Levenshtein 0.12.2'
           files: ./wheelhouse*.whl
+          tag_name: python-levenshtein-0.12.2
