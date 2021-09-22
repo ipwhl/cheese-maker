@@ -1,5 +1,7 @@
 # How to add wheel
 
+## Build config
+
 Add a script like this for the wheel:
 
 ```yaml
@@ -32,10 +34,22 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
 
-      - uses: actions/upload-artifact@v2
+      - name: package-xyz-0.0.1
+        uses: softprops/action-gh-release@v1
         with:
-          path: ./wheelhouse/*.whl
+          files: ./wheelhouse/*.whl
 ```
+
+## Tag the release
+
+Tag the release with the name of the release, with all lowercase
+
+For example, if you build wheels for python-Levenshtein, version 0.12.0, the
+tag would be python-levenshtein-0.12.0.
+
+Afterwards, push the tag and the build config.
+
+# Platform-dependent only
 
 Note that the wheel must be platform-dependent.  Platform-independent wheels
 can be built on sourcehut and can't be built with cibuildwheel.
