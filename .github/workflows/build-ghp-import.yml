@@ -22,7 +22,7 @@ jobs:
       - name: Fetch source distribution
         run: |
           wget https://files.pythonhosted.org/packages/72/60/50a903ae49f4ff2731053de314598ac0cb1f470cd68bb7f98d6dfd2af2c8/ghp-import-2.0.1.tar.gz
-          tar -zxf ghp-import-2.1.0.tar.gz -C .
+          tar -zxf ghp-import-2.0.1.tar.gz -C .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
