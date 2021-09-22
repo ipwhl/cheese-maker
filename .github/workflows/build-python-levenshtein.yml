@@ -21,7 +21,7 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          wget https://files.pythonhosted.org/packages/2a/dc/97f2b63ef0fa1fd78dcb7195aca577804f6b2b51e712516cc0e902a9a201/python-Levenshtein-0.12.2.tar.gz
+          curl https://files.pythonhosted.org/packages/2a/dc/97f2b63ef0fa1fd78dcb7195aca577804f6b2b51e712516cc0e902a9a201/python-Levenshtein-0.12.2.tar.gz -o python-Levenshtein-0.12.2.tar.gz
           tar -zxf python-Levenshtein-0.12.2.tar.gz
           mv python-Levenshtein-0.12.2/* .
 
