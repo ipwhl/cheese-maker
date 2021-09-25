@@ -34,7 +34,11 @@ jobs:
 
       - name: Checksum Windows
         if: ${{ runner.os == 'Windows' }}
-        run: certutil -hashfile wheelhouse/* SHA256
+        run: |
+          for file in $(dir /b wheelhouse)
+          do
+            certutil -hashfile wheelhouse/$file SHA256
+          done
 
       - name: Checksum Mac
         if: ${{ runner.os == 'macOS' }}
