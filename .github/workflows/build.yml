@@ -1,5 +1,9 @@
 name: python-Levenshtein 0.12.2
 
+defaults:
+  run:
+    shell: bash
+
 on: pull_request
 
 jobs:
@@ -29,6 +33,7 @@ jobs:
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BUILD: "cp*"
 
       - name: Checksum Linux
         if: ${{ runner.os == 'Linux' }}
@@ -37,7 +42,7 @@ jobs:
       - name: Checksum Windows
         if: ${{ runner.os == 'Windows' }}
         run: |
-          for file in $(dir /b wheelhouse)
+          for file in $(ls wheelhouse)
           do
             certutil -hashfile wheelhouse/$file SHA256
           done
