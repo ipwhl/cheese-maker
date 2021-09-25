@@ -28,19 +28,16 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
 
-      - name: Check runner's OS
-        run: echo $RUNNER_OS
-
       - name: Checksum Linux
-        if: ${{ env.RUNNER_OS == 'Linux' }}
+        if: ${{ runner.os == 'Linux' }}
         run: sha256sum wheelhouse/*
 
       - name: Checksum Windows
-        if: ${{ env.RUNNER_OS == 'Windows' }}
+        if: ${{ runner.os == 'Windows' }}
         run: certutil -hashfile wheelhouse/* SHA256
 
       - name: Checksum Mac
-        if: ${{ env.RUNNER_OS == 'macOS' }}
+        if: ${{ runner.os == 'macOS' }}
         run: shasum -a 256 wheelhouse/*
 
       - uses: actions/upload-artifact@v2
@@ -50,6 +47,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: python-Levenshtein 0.12.2-3'
+          name: 'Release: python-Levenshtein 0.12.2-4'
           files: wheelhouse/*.whl
           tag_name: python-levenshtein-0.12.2-3
