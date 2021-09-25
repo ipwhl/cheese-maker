@@ -28,15 +28,8 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
 
-      - name: Generate checksum
-        uses: jmgilman/actions-generate-checksum@v1
-        with:
-          patterns: wheelhouse/*.whl
-
-      - name: Display checksum
-        uses: pCYSl5EDgo/cat@master
-        with:
-          path: checksum.txt
+      - name: Checksum
+        run: sha256sum wheelhouse/*
 
       - uses: actions/upload-artifact@v2
         with:
@@ -45,6 +38,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: python-Levenshtein 0.12.2-2'
+          name: 'Release: python-Levenshtein 0.12.2-1'
           files: wheelhouse/*.whl
-          tag_name: python-levenshtein-0.12.2-2
+          tag_name: python-levenshtein-0.12.2-1
