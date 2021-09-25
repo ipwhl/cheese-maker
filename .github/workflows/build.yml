@@ -28,13 +28,16 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
 
+      - name: Checksum
+        run: sha256sum wheelhouse/*
+
       - uses: actions/upload-artifact@v2
         with:
-          path: ./wheelhouse/*.whl
+          path: wheelhouse/*.whl
 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: python-Levenshtein 0.12.2'
-          files: ./wheelhouse/*.whl
-          tag_name: python-levenshtein-0.12.2
+          name: 'Release: python-Levenshtein 0.12.2-1'
+          files: wheelhouse/*.whl
+          tag_name: python-levenshtein-0.12.2-1
