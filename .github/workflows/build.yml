@@ -27,6 +27,8 @@ jobs:
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
 
       - name: Checksum Linux
         if: ${{ runner.os == 'Linux' }}
