@@ -28,8 +28,17 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
 
-      - name: Checksum
+      - name: Checksum Linux
+        if: ${{ env.RUNNER_OS == 'Linux' }}
         run: sha256sum wheelhouse/*
+
+      - name: Checksum Windows
+        if: ${{ env.RUNNER_OS == 'Windows' }}
+        run: certutil -hashfile wheelhouse/* SHA256
+
+      - name: Checksum Mac
+        if: ${{ env.RUNNER_OS == 'macOS' }}
+        run: shasum -a 256 wheelhouse/*
 
       - uses: actions/upload-artifact@v2
         with:
@@ -38,6 +47,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: python-Levenshtein 0.12.2-1'
+          name: 'Release: python-Levenshtein 0.12.2-3'
           files: wheelhouse/*.whl
-          tag_name: python-levenshtein-0.12.2-1
+          tag_name: python-levenshtein-0.12.2-3
