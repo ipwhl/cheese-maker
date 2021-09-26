@@ -60,4 +60,4 @@ jobs:
         with:
           name: 'Release: python-Levenshtein 0.12.2-4'
           files: wheelhouse/*.whl
-          tag_name: python-levenshtein-0.12.2-3
+          tag_name: python-levenshtein-0.12.2-4
