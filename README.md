@@ -5,7 +5,11 @@
 Add a script like this for the wheel:
 
 ```yaml
-name: Build <wheel name>
+name: <Package name and version>
+
+defaults:
+  run:
+    shell: bash
 
 on: pull_request
 
@@ -28,16 +32,42 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl <url to download wheel> -o <tarball name>
-          tar -zxf <tarball name>
-          mv <extracted directory>/* .
+          curl <sdist tarball URL>
+          tar -zxf <sdist tarball file>
+          mv <extracted tarbal dir>/* .
+
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BUILD: "cp*"
 
-      - name: package-xyz-0.0.1
+      - name: Checksum Linux
+        if: ${{ runner.os == 'Linux' }}
+        run: sha256sum wheelhouse/*
+
+      - name: Checksum Windows
+        if: ${{ runner.os == 'Windows' }}
+        run: |
+          for file in $(ls wheelhouse)
+          do
+            certutil -hashfile wheelhouse/$file SHA256
+          done
+
+      - name: Checksum Mac
+        if: ${{ runner.os == 'macOS' }}
+        run: shasum -a 256 wheelhouse/*
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.whl
+
+      - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./wheelhouse/*.whl
+          name: 'Release: <package name-version>'
+          files: wheelhouse/*.whl
+          tag_name: <release tag>
 ```
 
 ## Tag the release
