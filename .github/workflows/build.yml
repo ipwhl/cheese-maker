@@ -27,7 +27,7 @@ jobs:
         run: |
           curl https://files.pythonhosted.org/packages/2d/f2/2a5bf44f878921c92d69f9e8edf6f5f382365e49c34c2764ec2a5bda5639/gssapi-1.7.0.tar.gz -o gssapi-1.7.0.tar.gz
           tar -zxf gssapi-1.7.0.tar.gz
-          mv gssapi-1.7.0.tar.gz/* .
+          mv gssapi-1.7.0/* .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
