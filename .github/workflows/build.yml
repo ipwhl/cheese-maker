@@ -38,7 +38,7 @@ jobs:
           mv gssapi-1.7.0/* .
 
       - name: Debug
-      - run: |
+        run: |
           which krb5-config
           echo $PATH
 
