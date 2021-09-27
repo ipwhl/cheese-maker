@@ -17,14 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Kerberos (Linux)
-        if: ${{ runner.os == 'Linux' }}
-        run: sudo apt install libkrb5-dev krb5-config
-
-      - name: Install Kerberos (mac)
-        if: ${{ runner.os == 'macOS' }}
-        run: brew install krb5
-
       # Used to host cibuildwheel
       - uses: actions/setup-python@v2
 
@@ -37,17 +29,13 @@ jobs:
           tar -zxf gssapi-1.7.0.tar.gz
           mv gssapi-1.7.0/* .
 
-      - name: Debug
-        run: |
-          which krb5-config
-          echo $PATH
-          krb5-config --libs gssapi # Just to see if it works
-
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
+          CIBW_BEFORE_BUILD_LINUX: sudo apt install libkrb5-dev krb5-config
+          CIBW_BEFORE_BUILD_MACOS: brew install krb5
 
       - name: Checksum Linux
         if: ${{ runner.os == 'Linux' }}
