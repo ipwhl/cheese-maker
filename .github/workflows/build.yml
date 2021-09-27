@@ -41,6 +41,7 @@ jobs:
         run: |
           which krb5-config
           echo $PATH
+          krb5-config --libs gssapi # Just to see if it works
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
