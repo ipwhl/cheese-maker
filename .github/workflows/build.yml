@@ -19,9 +19,7 @@ jobs:
 
       - name: Install Kerberos (Linux)
         if: ${{ runner.os == 'Linux' }}
-        run: |
-          sudo apt install libkrb5-dev krb5-config
-          which krb5-config
+        run: sudo apt install libkrb5-dev krb5-config
 
       - name: Install Kerberos (mac)
         if: ${{ runner.os == 'macOS' }}
@@ -40,7 +38,10 @@ jobs:
           mv gssapi-1.7.0/* .
 
       - name: Build wheels
-        run: python -m cibuildwheel --output-dir wheelhouse
+        run: |
+          python -m cibuildwheel --output-dir wheelhouse
+          which krb5-config
+          echo $PATH
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
