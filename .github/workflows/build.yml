@@ -37,11 +37,13 @@ jobs:
           tar -zxf gssapi-1.7.0.tar.gz
           mv gssapi-1.7.0/* .
 
-      - name: Build wheels
-        run: |
-          python -m cibuildwheel --output-dir wheelhouse
+      - name: Debug
+      - run: |
           which krb5-config
           echo $PATH
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
