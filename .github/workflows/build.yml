@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Kerberos (Linux)
         if: ${{ runner.os == 'Linux' }}
-        run: sudo apt install libkrb5-dev
+        run: sudo apt install libkrb5-dev krb5-config
 
       - name: Install Kerberos (mac)
         if: ${{ runner.os == 'macOS' }}
