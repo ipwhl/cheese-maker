@@ -54,6 +54,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: sqlcipher3 0.4.5
+          name: 'Release: sqlcipher3 0.4.5'
           files: wheelhouse/*.whl
           tag_name: sqlcipher3-0.4.5
