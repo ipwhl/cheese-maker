@@ -33,6 +33,7 @@ jobs:
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BEFORE_ALL_MACOS: brew install SQLCipher
           CIBW_BUILD: "cp*"
 
       - name: Checksum Windows
