@@ -57,4 +57,3 @@ jobs:
           name: 'Release: sqlcipher3 0.4.5
           files: wheelhouse/*.whl
           tag_name: sqlcipher3-0.4.5
-
