@@ -32,7 +32,7 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl <sdist tarball URL>
+          curl <sdist tarball URL> -o <sdist tarball file>
           tar -zxf <sdist tarball file>
           mv <extracted tarbal dir>/* .
 
@@ -42,25 +42,10 @@ jobs:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
 
-      - name: Checksum Linux
-        if: ${{ runner.os == 'Linux' }}
-        run: sha256sum wheelhouse/*
-
-      - name: Checksum Windows
-        if: ${{ runner.os == 'Windows' }}
-        run: |
-          for file in $(ls wheelhouse)
-          do
-            certutil -hashfile wheelhouse/$file SHA256
-          done
-
-      - name: Checksum Mac
-        if: ${{ runner.os == 'macOS' }}
-        run: shasum -a 256 wheelhouse/*
-
-      - uses: actions/upload-artifact@v2
+      - name: Checksum
+        uses: Huy-Ngo/gha-sha@v1.1.0
         with:
-          path: wheelhouse/*.whl
+          glob: 'wheelhouse/*.whl'
 
       - name: Release
         uses: softprops/action-gh-release@v1
