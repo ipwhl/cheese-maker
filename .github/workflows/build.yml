@@ -1,4 +1,4 @@
-name: hunter 3.3.8
+name: pytest-env 0.6.2
 
 defaults:
   run:
@@ -25,9 +25,9 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl https://files.pythonhosted.org/packages/90/6f/dbc61bc941c742dbe5ea17f982c46635466013beac360bda79e01536c3e7/hunter-3.3.8.tar.gz -o hunter-3.3.8.tar.gz
-          tar -zxf hunter-3.3.8.tar.gz
-          mv hunter-3.3.8/* .
+          curl https://files.pythonhosted.org/packages/f9/6e/31efb8dc1d17052c12f39262223e94038bfcc4cc7a124235630a6d50f166/pytest-env-0.6.2.tar.gz -o pytest-env-0.6.2.tar.gz
+          tar -zxf pytest-env-0.6.2.tar.gz
+          mv pytest-env-0.6.2/* .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
@@ -46,7 +46,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: hunter 3.3.8'
+          name: 'Release: pytest-env 0.6.2'
           files: wheelhouse/*.whl
-          tag_name: hunter-3.3.8
+          tag_name: pytest-env-0.6.2
 
