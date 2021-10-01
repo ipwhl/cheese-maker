@@ -34,7 +34,9 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
-          CIBW_BEFORE_ALL_LINUX: yum install libgpgme-devel
+          CIBW_BEFORE_ALL_LINUX: yum install gpgme-devel
+          CIBW_BEFORE_ALL_WINDOWS: choco install gpg4win
+          CIBW_BEFORE_ALL_MACOS: brew install gpgme
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
