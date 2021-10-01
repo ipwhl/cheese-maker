@@ -34,8 +34,7 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2_24
-          CIBW_BEFORE_ALL_LINUX: apt install libgpgme-dev
+          CIBW_BEFORE_ALL_LINUX: yum install libgpgme-devel
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
