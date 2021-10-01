@@ -1,4 +1,4 @@
-name: python-Levenshtein 0.12.2
+name: pkg ver
 
 defaults:
   run:
@@ -25,9 +25,9 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl https://files.pythonhosted.org/packages/2a/dc/97f2b63ef0fa1fd78dcb7195aca577804f6b2b51e712516cc0e902a9a201/python-Levenshtein-0.12.2.tar.gz -o python-Levenshtein-0.12.2.tar.gz
-          tar -zxf python-Levenshtein-0.12.2.tar.gz
-          mv python-Levenshtein-0.12.2/* .
+          curl URL -o pkg-ver.tar.gz
+          tar -zxf pkg-ver.tar.gz
+          mv pkg-ver/* .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
@@ -46,7 +46,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: python-Levenshtein 0.12.2-4'
+          name: 'Release: pkg ver'
           files: wheelhouse/*.whl
-          tag_name: python-levenshtein-0.12.2-3
+          tag_name: pkg-ver
 
