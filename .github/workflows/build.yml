@@ -34,7 +34,12 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
-          CIBW_BEFORE_ALL_WINDOWS: choco install --execution-timeout=21600 gnupg && cat 'C:\ProgramData\chocolatey\logs\chocolatey.log'
+          CIBW_BEFORE_ALL_WINDOWS: |
+            $env:PATH = "C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin"
+            [Environment]::SetEnvironmentVariable("Path", $env:PATH, "Machine")
+            choco install --yes gpg4win
+            echo "C:\Program Files (x86)\Gpg4win\..\GnuPG\bin" >> $env:GITHUB_PATH
+
           CIBW_BEFORE_ALL_MACOS: brew install gpgme
 
       - name: Checksum
