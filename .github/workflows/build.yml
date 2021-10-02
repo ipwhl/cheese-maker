@@ -34,7 +34,7 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
-          CIBW_BEFORE_ALL_WINDOWS: choco install -y gpg4win
+          CIBW_BEFORE_ALL_WINDOWS: choco install gnupg
           CIBW_BEFORE_ALL_MACOS: brew install gpgme
 
       - name: Checksum
