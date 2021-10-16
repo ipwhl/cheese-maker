@@ -1,0 +1,52 @@
+name: mysqlclient 1.4.6
+
+defaults:
+  run:
+    shell: bash
+
+on: pull_request
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-10.15]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v2
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel==2.1.2
+
+      - name: Fetch source distribution
+        run: |
+          curl https://files.pythonhosted.org/packages/d0/97/7326248ac8d5049968bf4ec708a5d3d4806e412a42e74160d7f266a3e03a/mysqlclient-1.4.6.tar.gz -o mysqlclient-1.4.6.tar.gz
+          tar -zxf mysqlclient-1.4.6.tar.gz
+          mv mysqlclient-1.4.6/* .
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.10"
+          CIBW_BUILD: "cp*"
+
+      - name: Checksum
+        uses: Huy-Ngo/gha-sha@v1.1.0
+        with:
+          glob: 'wheelhouse/*.whl'
+      - uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.whl
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Release: mysqlclient 1.4.6'
+          files: wheelhouse/*.whl
+          tag_name: mysqlclient-1.4.6
+
