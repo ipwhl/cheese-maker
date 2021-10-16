@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2019, macos-10.15]
+        os: [macos-10.15]
 
     steps:
       - uses: actions/checkout@v2
@@ -24,8 +24,18 @@ jobs:
           curl https://files.pythonhosted.org/packages/4e/6d/0c9bf9668da4e86417f73573353d3659d222ef76a93ce1717fb33284cdea/mariadb-1.0.7.tar.gz -o mariadb-1.0.7.tar.gz
           tar -zxf mariadb-1.0.7.tar.gz
           mv mariadb-1.0.7/* .
+
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BUILD: "cp*"
+          CIBW_BEFORE_ALL_MACOS: brew install mariadb
+      
+      - name: Checksum
+        uses: Huy-Ngo/gha-sha@v1.1.0
+        with:
+          glob: 'wheelhouse/*.whl'
 
       - name: Release
         uses: softprops/action-gh-release@v1
