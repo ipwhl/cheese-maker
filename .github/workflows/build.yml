@@ -34,7 +34,7 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.10"
           CIBW_BUILD: "cp*"
-          CIBW_BEFORE_ALL_MACOS: brew install mysql gcc openssl@3
+          CIBW_BEFORE_ALL_MACOS: brew install mysql gcc openssl@1.1
           CIBW_BEFORE_ALL_WINDOWS: choco install mysql-python
 
       - name: Checksum
