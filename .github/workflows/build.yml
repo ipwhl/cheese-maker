@@ -36,7 +36,7 @@ jobs:
           CIBW_BUILD: "cp*"
           CIBW_BEFORE_ALL_MACOS: |
             brew install mysql gcc openssl@3
-            export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+            export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl@3/lib/
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
