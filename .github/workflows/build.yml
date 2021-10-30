@@ -1,4 +1,4 @@
-name: mysqlclient 1.4.6
+name: mysqlclient 2.0.3
 
 defaults:
   run:
@@ -25,9 +25,9 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl https://files.pythonhosted.org/packages/d0/97/7326248ac8d5049968bf4ec708a5d3d4806e412a42e74160d7f266a3e03a/mysqlclient-1.4.6.tar.gz -o mysqlclient-1.4.6.tar.gz
-          tar -zxf mysqlclient-1.4.6.tar.gz
-          mv mysqlclient-1.4.6/* .
+          curl https://files.pythonhosted.org/packages/3c/df/59cd2fa5e48d0804d213bdcb1acb4d08c403b61c7ff7ed4dd4a6a2deb3f7/mysqlclient-2.0.3.tar.gz -o mysqlclient-2.0.3.tar.gz
+          tar -zxf mysqlclient-2.0.3.tar.gz
+          mv mysqlclient-2.0.3/* .
 
       - name: Build wheels
         run: env LDFLAGS="-I/usr/local/opt/openssl@1.1/include -L/usr/local/opt/openssl@1.1/lib" python -m cibuildwheel --output-dir wheelhouse
@@ -47,6 +47,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: 'Release: mysqlclient 1.4.6'
+          name: 'Release: mysqlclient 2.0.3'
           files: wheelhouse/*.whl
-          tag_name: mysqlclient-1.4.6
+          tag_name: mysqlclient-2.0.3
