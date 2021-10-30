@@ -30,14 +30,11 @@ jobs:
           mv mysqlclient-1.4.6/* .
 
       - name: Build wheels
-        run: python -m cibuildwheel --output-dir wheelhouse
+        run: env LDFLAGS="-I/usr/local/opt/openssl@1.1/include -L/usr/local/opt/openssl@1.1/lib" python -m cibuildwheel --output-dir wheelhouse
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.10"
           CIBW_BUILD: "cp*"
-          CIBW_BEFORE_ALL_MACOS: |
-            brew install mysql
-            export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-            export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+          CIBW_BEFORE_ALL_MACOS: brew install mysql
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
