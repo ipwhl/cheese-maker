@@ -27,7 +27,7 @@ jobs:
         run: |
           curl https://github.com/mhammond/pywin32/archive/refs/tags/b227.tar.gz -Lo pywin32-227.tar.gz
           tar -zxf pywin32-227.tar.gz
-          mv pywin32-227/* .
+          mv pywin32-b227/* .
 
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
