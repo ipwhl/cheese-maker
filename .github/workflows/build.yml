@@ -25,7 +25,7 @@ jobs:
 
       - name: Fetch source distribution
         run: |
-          curl URL -o pywin32-227.tar.gz
+          curl https://github.com/mhammond/pywin32/archive/refs/tags/b227.tar.gz -o pywin32-227.tar.gz
           tar -zxf pywin32-227.tar.gz
           mv pywin32-227/* .
 
