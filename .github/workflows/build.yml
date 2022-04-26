@@ -1,0 +1,52 @@
+name: cchardet 2.1.7
+
+defaults:
+  run:
+    shell: bash
+
+on: pull_request
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-10.15]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v2
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel==2.1.2
+
+      - name: Fetch source distribution
+        run: |
+          curl https://files.pythonhosted.org/packages/a8/5d/090c9f0312b7988a9433246c9cf0b566b1ae1374368cfb8ac897218a4f65/cchardet-2.1.7.tar.gz -o cchardet-2.1.7.tar.gz
+          tar -zxf cchardet-2.1.7.tar.gz
+          mv cchardet-2.1.7/* .
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BUILD: "cp310-*"
+
+      - name: Checksum
+        uses: Huy-Ngo/gha-sha@v1.1.0
+        with:
+          glob: 'wheelhouse/*.whl'
+      - uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.whl
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Release: cchardet 2.1.7'
+          files: wheelhouse/*.whl
+          tag_name: cchardet-2.1.7
+
