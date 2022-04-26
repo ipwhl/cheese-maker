@@ -32,8 +32,8 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_PROJECT_REQUIRES_PYTHON: "==3.10"
-          CIBW_BUILD: "cp*"
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.6"
+          CIBW_BUILD: "cp310-*"
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
