@@ -34,6 +34,7 @@ jobs:
         env:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
+          CIBW_BEFORE_ALL: apt install libkrb5-dev
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
