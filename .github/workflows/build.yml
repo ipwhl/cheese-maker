@@ -32,7 +32,7 @@ jobs:
       - name: Build wheels
         run: env LDFLAGS="-I/usr/local/opt/openssl@1.1/include -L/usr/local/opt/openssl@1.1/lib" python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7, <3.10"
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
           CIBW_BEFORE_ALL_MACOS: brew install mysql
 
