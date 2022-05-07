@@ -32,7 +32,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir wheelhouse
         env:
-          CIBW_BUILD: "cp39-*"
+          CIBW_BUILD: "cp310-*"
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
