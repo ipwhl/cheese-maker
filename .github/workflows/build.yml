@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-20.04, macos-10.15]
+        os: [macos-10.15]
 
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +35,6 @@ jobs:
           CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
           CIBW_BUILD: "cp*"
           CIBW_BEFORE_ALL_MACOS: brew install mariadb
-          CIBW_BEFORE_ALL_LINUX: yum install mariadb mariadb-connector-c
 
       - name: Checksum
         uses: Huy-Ngo/gha-sha@v1.1.0
