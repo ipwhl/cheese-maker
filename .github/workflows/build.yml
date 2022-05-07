@@ -1,0 +1,52 @@
+name: tornado 6.1
+
+defaults:
+  run:
+    shell: bash
+
+on: pull_request
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, windows-2019, macos-10.15]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Used to host cibuildwheel
+      - uses: actions/setup-python@v2
+
+      - name: Install cibuildwheel
+        run: python -m pip install cibuildwheel==2.1.2
+
+      - name: Fetch source distribution
+        run: |
+          curl https://files.pythonhosted.org/packages/cf/44/cc9590db23758ee7906d40cacff06c02a21c2a6166602e095a56cbf2f6f6/tornado-6.1.tar.gz -o tornado-6.1.tar.gz
+          tar -zxf tornado-6.1.tar.gz
+          mv tornado-6.1/* .
+
+      - name: Build wheels
+        run: python -m cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_PROJECT_REQUIRES_PYTHON: ">=3.7"
+          CIBW_BUILD: "cp*"
+
+      - name: Checksum
+        uses: Huy-Ngo/gha-sha@v1.1.0
+        with:
+          glob: 'wheelhouse/*.whl'
+      - uses: actions/upload-artifact@v2
+        with:
+          path: wheelhouse/*.whl
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: 'Release: tornado 6.1'
+          files: wheelhouse/*.whl
+          tag_name: tornado-6.1
+
